@@ -10,10 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  password  String
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  password String
+  Role     Role?   @relation(fields: [roleId], references: [id])
+  roleId   Int?
+}
+
+model Role {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  users       User[]
 }
